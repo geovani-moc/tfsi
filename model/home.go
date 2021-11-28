@@ -20,7 +20,7 @@ func Home(w http.ResponseWriter, r *http.Request, root *util.Root) {
 
 	variables := HomeTemplateVariables{
 		Title:       "Funções disponiveis",
-		Pages:       []string{"Buscar aurtor", "obras de um autor"},
+		Pages:       root.NamePages,
 		CurrentPage: "home",
 		URL:         root.URL,
 	}

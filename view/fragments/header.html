@@ -1,0 +1,30 @@
+{{define "header"}}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+    <div class="container-xl">
+      <a class="navbar-brand" href="{{.URL}}">{{.Title}}</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample07XL" aria-controls="navbarsExample07XL" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+  
+      <div class="collapse navbar-collapse" id="navbarsExample07XL">
+        <ul class="navbar-nav mr-auto">
+            {{$url := .URL}}
+            {{$currentPage := .CurrentPage}}
+            {{range $page := .Pages}}
+                {{if eq $currentPage $page}}
+                <li class="nav-item active"></li>
+                <a class="nav-link" href="{{$url}}/{{$page}}">{{$page}} <span class="sr-only">(current)</span> </a>
+                {{else}}
+                <li class="nav-item"></li>
+                <a class="nav-link" href="{{$url}}/{{$page}}">{{$page}} </a>
+                {{end}}
+
+            {{end}}
+        </ul>
+        <form class="form-inline my-2 my-md-0">
+          <input class="form-control" type="text" placeholder="Search" aria-label="Search">
+        </form>
+      </div>
+    </div>
+  </nav>
+{{end}}

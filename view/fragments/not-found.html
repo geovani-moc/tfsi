@@ -1,0 +1,14 @@
+{{define "not-found"}}
+<!DOCTYPE html>
+<html lang="en">
+{{template "head" .}}
+<body class="d-flex flex-column min-vh-100">
+    {{template "header" .}}
+    <main class="container">
+        <p>Page not found</p><br>
+        <p>ERRO 404</p>
+    </main>
+    {{template "footer"}}
+</body>
+</html>
+{{end}}

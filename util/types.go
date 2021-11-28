@@ -9,4 +9,5 @@ type Root struct {
 	Port      string
 	SiteName  string
 	URL       string
+	NamePages []string
 }
