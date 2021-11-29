@@ -11,6 +11,10 @@ func routes(app *App) {
 		controller.Home(w, r, &app.root)
 	})
 
+	app.router.HandleFunc("/home", func(w http.ResponseWriter, r *http.Request) {
+		controller.Home(w, r, &app.root)
+	})
+
 	app.router.PathPrefix("/static/").Handler(http.StripPrefix("/static/",
 		cacheControlWrapper(http.FileServer(http.Dir("static")))))
 
