@@ -1,0 +1,22 @@
+{{define "author"}}
+<!DOCTYPE html>
+<html lang="pt-br">
+{{template "head" .}}
+
+<body class="d-flex flex-column min-vh-100">
+    {{template "header" .}}
+    <main class="container">
+        <div class="list-group py-5">
+            <form class="form-inline my-2 my-md-0">
+                <input class="form-control" type="text" placeholder="Buscar {{.CurrentPage}}" aria-label="Search">
+                <button type="button" class="btn btn-primary">
+                    <span class="fa fa-search" aria-hidden="true"></span>
+                </button>
+            </form>
+        </div>
+    </main>
+    {{template "footer" .}}
+</body>
+
+</html>
+{{end}}

@@ -7,25 +7,22 @@ import (
 	"github.com/geovani-moc/tfsi/util"
 )
 
-//HomeTemplateVariables variables
-type HomeTemplateVariables struct {
+type BookTemplateVariables struct {
 	Title       string
 	Pages       []string
 	CurrentPage string
 	URL         string
 }
 
-//Home página inicial do sistema
-func Home(w http.ResponseWriter, r *http.Request, root *util.Root) {
-
-	variables := HomeTemplateVariables{
+func Book(w http.ResponseWriter, r *http.Request, root *util.Root) {
+	variables := BookTemplateVariables{
 		Title:       "LiteratTeX",
 		Pages:       root.NamePages,
-		CurrentPage: "home",
+		CurrentPage: "Livros",
 		URL:         root.URL,
 	}
 
-	err := root.Templates.ExecuteTemplate(w, "home", variables)
+	err := root.Templates.ExecuteTemplate(w, "book", variables)
 	if err != nil {
 		log.Print("Template executing error: ", err)
 	}

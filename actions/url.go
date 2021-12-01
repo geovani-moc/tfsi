@@ -15,6 +15,14 @@ func routes(app *App) {
 		controller.Home(w, r, &app.root)
 	})
 
+	app.router.HandleFunc("/Livros", func(w http.ResponseWriter, r *http.Request) {
+		controller.Book(w, r, &app.root)
+	})
+
+	app.router.HandleFunc("/Autores", func(w http.ResponseWriter, r *http.Request) {
+		controller.Author(w, r, &app.root)
+	})
+
 	app.router.PathPrefix("/static/").Handler(http.StripPrefix("/static/",
 		cacheControlWrapper(http.FileServer(http.Dir("static")))))
 

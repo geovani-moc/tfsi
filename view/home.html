@@ -1,16 +1,19 @@
 {{define "home"}}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 {{template "head" .}}
+
 <body class="d-flex flex-column min-vh-100">
     {{template "header" .}}
-    <main class="container" >
-    <div class="list-group py-5">
+    <main class="container">
+        <div class="list-group py-5">
             {{$url := .URL}}
             {{range $page := .Pages}}
-                 <a href={{$url}}/{{$page}} class="list-group-item list-group-item-action text-center">{{$page}}</a>
+                {{if ne $page $.CurrentPage}}
+                <a href={{$url}}/{{$page}} class="list-group-item list-group-item-action text-center">{{$page}}</a>
+                {{end}}
             {{end}}
-    </div>        
+        </div>
     </main>
     {{template "footer" .}}
 </body>

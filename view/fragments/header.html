@@ -9,21 +9,13 @@
       <div class="collapse navbar-collapse" id="navbarsExample07XL">
         <ul class="navbar-nav mr-auto">
             {{$url := .URL}}
-            {{$currentPage := .CurrentPage}}
             {{range $page := .Pages}}
-                {{if eq $currentPage $page}}
-                <li class="nav-item active"></li>
-                <a class="nav-link" href="{{$url}}/{{$page}}">{{$page}} <span class="sr-only">(current)</span> </a>
-                {{else}}
+              {{if ne $page $.CurrentPage}}
                 <li class="nav-item"></li>
-                <a class="nav-link" href="{{$url}}/{{$page}}">{{$page}} </a>
-                {{end}}
-
+                <a class="nav-link" href="{{$url}}/{{$page}}">{{$page}}</a>
+              {{end}}
             {{end}}
         </ul>
-        <form class="form-inline my-2 my-md-0">
-          <input class="form-control" type="text" placeholder="Search" aria-label="Search">
-        </form>
       </div>
     </div>
   </nav>

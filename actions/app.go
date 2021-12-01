@@ -35,14 +35,16 @@ func NewApp() *App {
 
 	app := &App{
 		router:  mux.NewRouter(),
-		version: "0.3",
+		version: "1.0.0",
 		root: util.Root{
 			Port:      ":8080",
-			SiteName:  "Livros ***",
+			SiteName:  "LiteraTeX",
 			URL:       "http://localhost:8080",
 			Templates: parseTemplates(),
 			NamePages: []string{
 				"home",
+				"Livros",
+				"Autores",
 			},
 		},
 	}
@@ -51,7 +53,7 @@ func NewApp() *App {
 
 //Run starts the server
 func (app *App) Run() error {
-	fmt.Println("Autores", app.version)
+	fmt.Println("LiteraTeX", app.version)
 	fmt.Println("Link: http://localhost" + app.root.Port)
 
 	return http.ListenAndServe(app.root.Port, app.router)
