@@ -7,11 +7,49 @@
     {{template "header" .}}
     <main class="container">
         <div class="list-group py-5">
-            <form class="form-inline my-2 my-md-0">
-                <input class="form-control" type="text" placeholder="Buscar {{.CurrentPage}}" aria-label="Search">
-                <button type="button" class="btn btn-primary">
-                    <span class="fa fa-search" aria-hidden="true"></span>
-                </button>
+            <form>
+                <div class="form-row">
+                    <div class="col">
+                        <input class="form-control" type="text" placeholder="Buscar {{.CurrentPage}}"
+                            aria-label="Search">
+                    </div>
+                    <div class="col">
+                        <button type="button" class="btn btn-primary">
+                            <span class="fa fa-search" aria-hidden="true"></span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="select-filter-author">Filtro: </label>
+
+                        <div class="form-row" id="select-filter-author">
+
+                            <div class="d-flex flex-row">
+                                <input class="form-check-input" type="radio" name="Nome-autor" id="author-name"
+                                    value="op-name-author" checked>
+                                <label class="form-check-label" for="author-name">
+                                    Busca por nome do autor
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2"
+                                    value="option2">
+                                <label class="form-check-label" for="exampleRadios2">
+                                    Second default radio
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3"
+                                    value="option3" disabled>
+                                <label class="form-check-label" for="exampleRadios3">
+                                    Disabled radio
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </form>
         </div>
     </main>
