@@ -7,51 +7,77 @@
     {{template "header" .}}
     <main class="container">
         <div class="list-group py-5">
-            <form>
-                <div class="form-row">
-                    <div class="col">
-                        <input class="form-control" type="text" placeholder="Buscar {{.CurrentPage}}"
-                            aria-label="Search">
-                    </div>
-                    <div class="col">
-                        <button type="button" class="btn btn-primary">
-                            <span class="fa fa-search" aria-hidden="true"></span>
-                        </button>
+            <form method="post">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <input class="form-control" type="text"
+                                {{if eq .Search ""}} 
+                                placeholder="Buscar {{.CurrentPage}}"
+                                {{else}}
+                                placeholder={{.Search}}
+                                {{end}}
+                                    aria-label="Search" name="buscar" required>
+                            </div>
+                            <div class="col-md-3">
+                                <button type="submit" class="btn btn-primary">
+                                    <span class="fa fa-search" aria-hidden="true"></span>
+                                </button>
+                            </div>
+
+                        </div>
+                        
                     </div>
                 </div>
 
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="select-filter-author">Filtro: </label>
+                <div class="row">
 
+                    <div class="col-md-1">
+                        <label for="select-filter-author">Filtro: </label>
+                    </div>
+
+                    <div class="col-md-11">
                         <div class="form-row" id="select-filter-author">
 
-                            <div class="d-flex flex-row">
-                                <input class="form-check-input" type="radio" name="Nome-autor" id="author-name"
-                                    value="op-name-author" checked>
+                            <div class="form-check ml-2">
+                                <input class="form-check-input" type="radio" name="op" id="author-name"
+                                    value="1" checked>
                                 <label class="form-check-label" for="author-name">
                                     Busca por nome do autor
                                 </label>
                             </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2"
-                                    value="option2">
+                            <div class="form-check ml-2">
+                                <input class="form-check-input" type="radio" name="op" id="exampleRadios2"
+                                    value="2">
                                 <label class="form-check-label" for="exampleRadios2">
                                     Second default radio
                                 </label>
                             </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3"
-                                    value="option3" disabled>
+                            <div class="form-check ">
+                                <input class="form-check-input" type="radio" name="op" id="exampleRadios3"
+                                    value="3">
                                 <label class="form-check-label" for="exampleRadios3">
                                     Disabled radio
                                 </label>
-                            </div>
-                        </div>
                     </div>
-                </div>
+                    
+                        
+
+                       
+                    </div>
+               
             </form>
         </div>
+        {{if eq .Op "1"}}
+            {{template "authorByName" .}}
+        {{end}}
+
+        {{if eq .Op "2"}}
+        {{end}}
+
+        {{if eq .Op "3"}}
+        {{end}}
     </main>
     {{template "footer" .}}
 </body>

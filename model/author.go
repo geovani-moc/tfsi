@@ -11,10 +11,13 @@ import (
 )
 
 type AuthorTemplateVariables struct {
-	Title       string
-	Pages       []string
-	CurrentPage string
-	URL         string
+	Title        string
+	Pages        []string
+	CurrentPage  string
+	URL          string
+	Op           string
+	Search       string
+	authorByName entity.AuthorByName
 }
 
 func Author(w http.ResponseWriter, r *http.Request, root *util.Root) {
@@ -23,21 +26,38 @@ func Author(w http.ResponseWriter, r *http.Request, root *util.Root) {
 		Pages:       root.NamePages,
 		CurrentPage: "Autores",
 		URL:         root.URL,
+		Search:      "",
 	}
 
-	// authorName := r.URL.Query().Get("author_name")
-	// if authorName != "" {
-	// 	//fazer a busca automaticamente
-	// }
+	if r.Method != http.MethodPost {
+		err := root.Templates.ExecuteTemplate(w, "author", variables)
+		if err != nil {
+			log.Print("Template executing error: ", err)
+		}
+		return
+	}
 
-	//pegar nome no formulario
-	result := searchAuthorByName("j k rowling")
-	print(result.NumFound)
+	variables.Search = r.FormValue("buscar")
+	variables.Op = r.FormValue("op")
+
+	if variables.Search == "" {
+		//mostrar erro interno op= "-1" include tela de erro
+		err := root.Templates.ExecuteTemplate(w, "author", variables)
+		if err != nil {
+			log.Print("Template executing error: ", err)
+		}
+		return
+	}
+
+	if variables.Op == "1" {
+		variables.authorByName = searchAuthorByName(variables.Search)
+	}
 
 	err := root.Templates.ExecuteTemplate(w, "author", variables)
 	if err != nil {
 		log.Print("Template executing error: ", err)
 	}
+
 }
 
 func searchAuthorByName(name string) entity.AuthorByName {
