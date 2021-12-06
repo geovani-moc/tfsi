@@ -12,7 +12,7 @@
                     <div class="col-sm-8">
                         <div class="row">
                             <div class="col-md-9">
-                                <input class="form-control" type="text"
+                                <input class="form-control" type="text" autocomplete="off"
                                 {{if eq .Search ""}} 
                                 placeholder="Buscar {{.CurrentPage}}"
                                 {{else}}
@@ -51,14 +51,14 @@
                                 <input class="form-check-input" type="radio" name="op" id="exampleRadios2"
                                     value="2">
                                 <label class="form-check-label" for="exampleRadios2">
-                                    Second default radio
+                                    Informações sobre um autor [código open library]
                                 </label>
                             </div>
                             <div class="form-check ">
                                 <input class="form-check-input" type="radio" name="op" id="exampleRadios3"
                                     value="3">
                                 <label class="form-check-label" for="exampleRadios3">
-                                    Disabled radio
+                                    Buscar trabalhos relacionados [código open library]
                                 </label>
                     </div>
                     
@@ -74,9 +74,11 @@
         {{end}}
 
         {{if eq .Op "2"}}
+            {{template "authorByCode" .}}
         {{end}}
 
         {{if eq .Op "3"}}
+            {{template "worksByAuthor" .}}
         {{end}}
     </main>
     {{template "footer" .}}

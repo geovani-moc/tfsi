@@ -5,10 +5,32 @@
     </div>
 </div>
 
-<div class="row">
-    <p class="col-md-12">
-        Autores: resultado por nome
-    </p>
+{{if eq .AuthorByName.NumFound 0}}
+<div class="row w-100">
+    <center>
+        <h3>Nenhum resultado é correspondente.</h3>
+    </center>
 </div>
+{{else}}
+<div class="row ml-2 w-100">
+    <h6>Foram encontrados {{.AuthorByName.NumFound}} na busca.</h6>
+</div>
+{{range $docs := .AuthorByName.Docs}}
+<div class="card mt-1 w-100">
+    <h5 class="card-header">{{$docs.Name}}</h5>
+    <div class="card-body">
+      <h5 class="card-title">Trabalho em destaque: {{$docs.TopWork}}</h5>
+      <p class="card-text">
+          Quantidade de trabalhos: {{$docs.WorkCount}}<br>
+          Nascimento: {{$docs.BirthDate}}<br>
+          Código Open Library: {{$docs.Key}}
+      </p>
+      
+    </div>
+  </div>
+{{end}}
+
+{{end}}
+
 
 {{end}}

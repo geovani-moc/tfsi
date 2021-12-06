@@ -1,0 +1,25 @@
+{{define "worksByAuthor"}}
+<div class="row">
+    <div class="col-md-12">
+        <h2>Resultados:</h2>
+    </div>
+</div>
+
+
+{{range $docs := .WorksByAuthor.Entries}}
+<div class="card mt-1 w-100">
+    <h5 class="card-header">{{.Title}}</h5>
+    <div class="card-body">
+      <p class="card-text">
+          <b>Código de autor(es):</b><br>
+          {{range .Authors}}
+            {{.Author.Key}}<br>
+          {{end}}
+          <b>Código do trabalho:</b> {{.Key}}
+      </p>
+      
+    </div>
+  </div>
+{{end}}
+
+{{end}}

@@ -1,0 +1,33 @@
+{{define "authorByCode"}}
+
+{{if ne .AuthorByCode.Error ""}}
+<div class="row w-100">
+    <center>
+        <h3>Nenhum resultado é correspondente.</h3>
+    </center>
+</div>
+{{else}}
+<div class="row">
+    <div class="col-md-12">
+        <h2>Resultados:</h2>
+    </div>
+</div>
+
+<div class="card mt-1 w-100">
+    <h5 class="card-header">{{.AuthorByCode.Name}}</h5>
+    <div class="card-body">
+      <p class="card-text">
+
+          <b>Sobre</b>: {{.AuthorByCode.Bio}}<br>
+          <b>Nascimento</b>: {{.AuthorByCode.BirthDate}}<br>
+          <b>Código Open Library</b>: {{.AuthorByCode.Key}}<br>
+          <b>Links</b>: <br>
+          {{range .AuthorByCode.Links}}
+                {{.Title}}: {{.URL}}<bre>
+          {{end}}
+      </p>
+      
+    </div>
+  </div>
+{{end}}
+{{end}}
