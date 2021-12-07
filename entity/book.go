@@ -1,10 +1,44 @@
 package entity
 
-type Book struct {
+type InfoBook struct {
+	Description   string   `json:"description"`
+	Title         string   `json:"title"`
+	Error         string   `json:"error"`
+	Covers        []int    `json:"covers"`
+	SubjectPlaces []string `json:"subject_places"`
+	Subjects      []string `json:"subjects"`
+	SubjectPeople []string `json:"subject_people"`
+	Key           string   `json:"key"`
+	Authors       []struct {
+		Author struct {
+			Key string `json:"key"`
+		} `json:"author"`
+		Type struct {
+			Key string `json:"key"`
+		} `json:"type"`
+	} `json:"authors"`
+	SubjectTimes []string `json:"subject_times"`
+	Type         struct {
+		Key string `json:"key"`
+	} `json:"type"`
+	LatestRevision int `json:"latest_revision"`
+	Revision       int `json:"revision"`
+	Created        struct {
+		Type  string `json:"type"`
+		Value string `json:"value"`
+	} `json:"created"`
+	LastModified struct {
+		Type  string `json:"type"`
+		Value string `json:"value"`
+	} `json:"last_modified"`
+}
+
+type EditionBook struct {
 	Publishers    []string `json:"publishers"`
 	NumberOfPages int      `json:"number_of_pages"`
 	Isbn10        []string `json:"isbn_10"`
 	Covers        []int    `json:"covers"`
+	Error         string   `json:"error"`
 	Key           string   `json:"key"`
 	Authors       []struct {
 		Key string `json:"key"`

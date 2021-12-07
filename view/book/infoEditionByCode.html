@@ -1,0 +1,40 @@
+{{define "infoEditionByCode"}}
+{{if ne .EditionBook.Error ""}}
+<div class="row w-100">
+    <center>
+        <h3>Nenhum resultado é correspondente.</h3>
+    </center>
+</div>
+{{else}}
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>Resultados:</h2>
+    </div>
+</div>
+
+<div class="card mt-1 w-100">
+    <h5 class="card-header">{{.EditionBook.Title}}</h5>
+    <div class="card-body">
+      <p class="card-text">
+
+          <b>Editores</b>: 
+          {{range $publisher := .EditionBook.Publishers}}
+            {{$publisher}}<br>
+          {{end}}
+          <b>Páginas</b>: {{.EditionBook.NumberOfPages}}<br>
+          <b>ISBN</b>:
+          {{range $isbn := .EditionBook.Isbn10}}
+          {{$isbn}}<br>
+          {{end}}
+          {{range $isbn := .EditionBook.Isbn13}}
+          {{$isbn}}<br>
+          {{end}}
+          <b>Data de publicação</b>: {{.EditionBook.PublishDate}}<br>
+      </p>
+      
+    </div>
+  </div>
+
+{{end}}
+{{end}}

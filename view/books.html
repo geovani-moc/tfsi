@@ -7,13 +7,74 @@
     {{template "header" .}}
     <main class="container">
         <div class="list-group py-5">
-            <form class="form-inline my-2 my-md-0">
-                <input class="form-control" type="text" placeholder="Buscar {{.CurrentPage}}" aria-label="Search">
-                <button type="button" class="btn btn-primary">
-                    <span class="fa fa-search" aria-hidden="true"></span>
-                </button>
+            <form method="post">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <input class="form-control" type="text" autocomplete="off"
+                                {{if eq .Search ""}} 
+                                placeholder="Buscar {{.CurrentPage}}"
+                                {{else}}
+                                placeholder={{.Search}}
+                                {{end}}
+                                    aria-label="Search" name="buscar" required>
+                            </div>
+                            <div class="col-md-3">
+                                <button type="submit" class="btn btn-primary">
+                                    <span class="fa fa-search" aria-hidden="true"></span>
+                                </button>
+                            </div>
+
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-1">
+                        <label for="select-filter-author">Filtro: </label>
+                    </div>
+
+                    <div class="col-md-11">
+                        <div class="form-row" id="select-filter-author">
+
+                            <div class="form-check ml-2">
+                                <input class="form-check-input" type="radio" name="op" id="author-name"
+                                    value="1" checked>
+                                <label class="form-check-label" for="author-name">
+                                    Informações do Livro[código Open Library]
+                                </label>
+                            </div>
+                            <div class="form-check ml-2">
+                                <input class="form-check-input" type="radio" name="op" id="exampleRadios2"
+                                    value="2">
+                                <label class="form-check-label" for="exampleRadios2">
+                                    Informações sobre edição de um livro [código open library]
+                                </label>
+                            </div>
+                            <div class="form-check ">
+                                <input class="form-check-input" type="radio" name="op" id="exampleRadios3"
+                                    value="3">
+                                <label class="form-check-label" for="exampleRadios3">
+                                    Informações sobre edição de um livro [ISBN]
+                                </label>
+                    </div> 
+                    </div>
             </form>
         </div>
+        {{if eq .Op "1"}}
+            {{template "infoBookByCode" .}}
+        {{end}}
+
+        {{if eq .Op "2"}}
+            {{template "infoEditionByCode" .}}
+        {{end}}
+
+        {{if eq .Op "3"}}
+            {{template "infoEditionByISBN" .}}
+        {{end}}
     </main>
     {{template "footer" .}}
 </body>
