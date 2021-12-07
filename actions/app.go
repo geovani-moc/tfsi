@@ -37,9 +37,9 @@ func NewApp() *App {
 		router:  mux.NewRouter(),
 		version: "1.0.0",
 		root: util.Root{
-			Port:      ":8080",
+			Port:      ":3000",
 			SiteName:  "LiteraTeX",
-			URL:       "http://localhost:8080",
+			URL:       "http://0.0.0.0:3000",
 			Templates: parseTemplates(),
 			NamePages: []string{
 				"home",
@@ -54,7 +54,7 @@ func NewApp() *App {
 //Run inicia o servidor do app
 func (app *App) Run() error {
 	fmt.Println("LiteraTeX", app.version)
-	fmt.Println("Link: http://localhost" + app.root.Port)
+	fmt.Println("Link:" + app.root.URL)
 
 	return http.ListenAndServe(app.root.Port, app.router)
 }
