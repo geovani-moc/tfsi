@@ -11,6 +11,7 @@ import (
 
 	"github.com/geovani-moc/tfsi/util"
 	"github.com/gorilla/mux"
+	"github.com/joho/godotenv"
 )
 
 type App struct {
@@ -32,14 +33,16 @@ func BuildApp() *App {
 
 // NewApp Criação de intancia de um novo app
 func NewApp() *App {
+	godotenv.Load()
+	port := os.Getenv("PORT")
 
 	app := &App{
 		router:  mux.NewRouter(),
 		version: "1.0.0",
 		root: util.Root{
-			Port:      ":3000",
+			Port:      ":" + port,
 			SiteName:  "LiteraTeX",
-			URL:       "http://0.0.0.0:3000",
+			URL:       "http://0.0.0.0:" + port,
 			Templates: parseTemplates(),
 			NamePages: []string{
 				"home",
