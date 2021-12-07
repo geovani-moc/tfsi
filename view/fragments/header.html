@@ -1,18 +1,17 @@
 {{define "header"}}
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
     <div class="container-xl">
-      <a class="navbar-brand" href="{{.URL}}">{{.Title}}</a>
+      <a class="navbar-brand" href="/">{{.Title}}</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample07XL" aria-controls="navbarsExample07XL" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
   
       <div class="collapse navbar-collapse" id="navbarsExample07XL">
         <ul class="navbar-nav mr-auto">
-            {{$url := .URL}}
             {{range $page := .Pages}}
               {{if ne $page $.CurrentPage}}
                 <li class="nav-item"></li>
-                <a class="nav-link" href="{{$url}}/{{$page}}">{{$page}}</a>
+                <a class="nav-link" href="/{{$page}}">{{$page}}</a>
               {{end}}
             {{end}}
         </ul>

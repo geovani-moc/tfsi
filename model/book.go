@@ -27,7 +27,7 @@ func Book(w http.ResponseWriter, r *http.Request, root *util.Root) {
 		Title:       "Pesquisa sobre livros",
 		Pages:       root.NamePages,
 		CurrentPage: "Livros",
-		URL:         root.URL,
+		URL:         r.Host,
 		Search:      "",
 	}
 
@@ -35,7 +35,7 @@ func Book(w http.ResponseWriter, r *http.Request, root *util.Root) {
 		err := root.Templates.ExecuteTemplate(w, "book", variables)
 		if err != nil {
 			log.Print("Template executing error: ", err)
-			internalError(w, root)
+			internalError(w, r, root)
 		}
 		return
 	}
@@ -48,7 +48,7 @@ func Book(w http.ResponseWriter, r *http.Request, root *util.Root) {
 		err := root.Templates.ExecuteTemplate(w, "internalError", variables)
 		if err != nil {
 			log.Println("Template executing error: ", err)
-			internalError(w, root)
+			internalError(w, r, root)
 			return
 		}
 		return
@@ -62,7 +62,7 @@ func Book(w http.ResponseWriter, r *http.Request, root *util.Root) {
 	}
 
 	if errInternal != "" {
-		internalError(w, root)
+		internalError(w, r, root)
 		log.Println(errInternal)
 		return
 	}

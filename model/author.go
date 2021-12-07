@@ -27,7 +27,7 @@ func Author(w http.ResponseWriter, r *http.Request, root *util.Root) {
 		Title:       "Pesquisa sobre autores",
 		Pages:       root.NamePages,
 		CurrentPage: "Autores",
-		URL:         root.URL,
+		URL:         r.Host,
 		Search:      "",
 	}
 
@@ -37,7 +37,7 @@ func Author(w http.ResponseWriter, r *http.Request, root *util.Root) {
 		err := root.Templates.ExecuteTemplate(w, "author", variables)
 		if err != nil {
 			log.Print("Template executing error: ", err)
-			internalError(w, root)
+			internalError(w, r, root)
 			return
 		}
 		return
@@ -51,7 +51,7 @@ func Author(w http.ResponseWriter, r *http.Request, root *util.Root) {
 		err := root.Templates.ExecuteTemplate(w, "internalError", variables)
 		if err != nil {
 			log.Print("Template executing error: ", err)
-			internalError(w, root)
+			internalError(w, r, root)
 			return
 		}
 		return
@@ -62,13 +62,13 @@ func Author(w http.ResponseWriter, r *http.Request, root *util.Root) {
 	} else if variables.Op == "2" {
 		variables.AuthorByCode, errInternal = searchAuthorByCode(variables.Search)
 		if errInternal != "" {
-			internalError(w, root)
+			internalError(w, r, root)
 			return
 		}
 	} else if variables.Op == "3" {
 		variables.WorksByAuthor, errInternal = searchWorksByAuthor(variables.Search)
 		if errInternal != "" {
-			internalError(w, root)
+			internalError(w, r, root)
 			return
 		}
 	}
@@ -166,12 +166,12 @@ func searchWorksByAuthor(code string) (entity.WorksByAuthor, string) {
 	return result, ""
 }
 
-func internalError(w http.ResponseWriter, root *util.Root) {
+func internalError(w http.ResponseWriter, r *http.Request, root *util.Root) {
 	variables := AuthorTemplateVariables{
 		Title:       "Erro interno",
 		Pages:       root.NamePages,
 		CurrentPage: "Internal error",
-		URL:         root.URL,
+		URL:         r.Host,
 		Search:      "",
 	}
 	err := root.Templates.ExecuteTemplate(w, "internalError", variables)

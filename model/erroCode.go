@@ -21,7 +21,7 @@ func Code404(w http.ResponseWriter, r *http.Request, root *util.Root) {
 		Title:       "Página não encontrada",
 		Pages:       root.NamePages,
 		CurrentPage: "httpStatusCode",
-		URL:         root.URL,
+		URL:         r.Host,
 	}
 
 	err := root.Templates.ExecuteTemplate(w, "not-found", variables)

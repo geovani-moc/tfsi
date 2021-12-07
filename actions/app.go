@@ -40,10 +40,9 @@ func NewApp() *App {
 		router:  mux.NewRouter(),
 		version: "1.0.0",
 		root: util.Root{
-			Port:     ":" + port,
-			SiteName: "LiteraTeX",
-			//URL:       "http://0.0.0.0:" + port,
-			URL:       "https://literatex.herokuapp.com:" + port,
+			Port:      ":" + port,
+			SiteName:  "LiteraTeX",
+			URL:       "http://0.0.0.0:" + port,
 			Templates: parseTemplates(),
 			NamePages: []string{
 				"home",

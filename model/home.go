@@ -1,6 +1,7 @@
 package model
 
 import (
+	"html/template"
 	"log"
 	"net/http"
 
@@ -12,7 +13,7 @@ type HomeTemplateVariables struct {
 	Title       string
 	Pages       []string
 	CurrentPage string
-	URL         string
+	URL         template.URL
 }
 
 //Home página inicial do sistema
@@ -22,7 +23,7 @@ func Home(w http.ResponseWriter, r *http.Request, root *util.Root) {
 		Title:       "LiteratTeX",
 		Pages:       root.NamePages,
 		CurrentPage: "home",
-		URL:         root.URL,
+		URL:         template.URL(r.Host),
 	}
 
 	err := root.Templates.ExecuteTemplate(w, "home", variables)
