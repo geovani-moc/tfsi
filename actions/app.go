@@ -30,7 +30,7 @@ func BuildApp() *App {
 	return _app
 }
 
-// NewApp create the app
+// NewApp Criação de intancia de um novo app
 func NewApp() *App {
 
 	app := &App{
@@ -51,7 +51,7 @@ func NewApp() *App {
 	return app
 }
 
-//Run starts the server
+//Run inicia o servidor do app
 func (app *App) Run() error {
 	fmt.Println("LiteraTeX", app.version)
 	fmt.Println("Link: http://localhost" + app.root.Port)
