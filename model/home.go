@@ -20,7 +20,7 @@ type HomeTemplateVariables struct {
 func Home(w http.ResponseWriter, r *http.Request, root *util.Root) {
 
 	variables := HomeTemplateVariables{
-		Title:       "LiteratTeX",
+		Title:       "LiteraTeX",
 		Pages:       root.NamePages,
 		CurrentPage: "home",
 		URL:         template.URL(r.Host),

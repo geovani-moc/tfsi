@@ -47,7 +47,6 @@ func Author(w http.ResponseWriter, r *http.Request, root *util.Root) {
 	variables.Op = r.FormValue("op")
 
 	if variables.Search == "" {
-
 		err := root.Templates.ExecuteTemplate(w, "internalError", variables)
 		if err != nil {
 			log.Print("Template executing error: ", err)
@@ -58,19 +57,16 @@ func Author(w http.ResponseWriter, r *http.Request, root *util.Root) {
 	}
 
 	if variables.Op == "1" {
-		variables.AuthorByName = searchAuthorByName(variables.Search)
+		variables.AuthorByName, errInternal = searchAuthorByName(variables.Search)
 	} else if variables.Op == "2" {
 		variables.AuthorByCode, errInternal = searchAuthorByCode(variables.Search)
-		if errInternal != "" {
-			internalError(w, r, root)
-			return
-		}
 	} else if variables.Op == "3" {
 		variables.WorksByAuthor, errInternal = searchWorksByAuthor(variables.Search)
-		if errInternal != "" {
-			internalError(w, r, root)
-			return
-		}
+	}
+
+	if errInternal != "" {
+		internalError(w, r, root)
+		return
 	}
 
 	err := root.Templates.ExecuteTemplate(w, "author", variables)
@@ -80,12 +76,13 @@ func Author(w http.ResponseWriter, r *http.Request, root *util.Root) {
 
 }
 
-func searchAuthorByName(name string) entity.AuthorByName {
+func searchAuthorByName(name string) (entity.AuthorByName, string) {
 	client := &http.Client{Timeout: 10 * time.Second}
 	request, err := http.NewRequest(http.MethodGet, "https://openlibrary.org/search/authors.json", nil)
+	var result entity.AuthorByName
 
 	if nil != err {
-		log.Fatal("erro interno: requisisção não pode ser criada.")
+		return result, "erro interno: requisisção não pode ser criada."
 	}
 
 	query := request.URL.Query()
@@ -96,20 +93,18 @@ func searchAuthorByName(name string) entity.AuthorByName {
 	response, err := client.Do(request)
 
 	if nil != err {
-		log.Fatal("erro interno: requisição não pode ser realizada.")
+		return result, "erro interno: requisição não pode ser realizada."
 	}
 
 	defer response.Body.Close()
 
-	var result entity.AuthorByName
-
 	err = json.NewDecoder(response.Body).Decode(&result)
 
 	if nil != err {
-		log.Fatal("erro interno: não foi possivel decodificar a resposta.")
+		return result, "erro interno: não foi possivel decodificar a resposta."
 	}
 
-	return result
+	return result, ""
 }
 
 func searchAuthorByCode(code string) (entity.AuthorByCode, string) {
